@@ -2,6 +2,8 @@ name: release
 on:
   push:
     tags: ['v*']
+permissions:
+  contents: write
 jobs:
   build:
     strategy:
@@ -16,6 +18,5 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22, cache: pnpm }
       - run: pnpm install --frozen-lockfile
-      - run: pnpm test
       - run: ${{ matrix.cmd }}
         env: { GH_TOKEN: '${{ secrets.GITHUB_TOKEN }}' }

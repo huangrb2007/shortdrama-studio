@@ -1,2 +1,2 @@
 packages: []
-onlyBuiltDependencies: [esbuild]
+onlyBuiltDependencies: [esbuild, electron, ffmpeg-static]
