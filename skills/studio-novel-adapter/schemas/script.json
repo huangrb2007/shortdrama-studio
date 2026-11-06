@@ -1,0 +1,6 @@
+{"type":"object","required":["episode_promise","scenes","voice_cards","blockers"],"properties":{
+"episode_promise":{"type":"string"},"blockers":{"type":"array","items":{"type":"string"}},"compliance_notes":{"type":"array","items":{"type":"string"}},
+"voice_cards":{"type":"array","items":{"type":"object","required":["name","age","habits","never_says","under_pressure"],"properties":{"name":{"type":"string"},"age":{"type":"number"},"habits":{"type":"string"},"never_says":{"type":"string"},"under_pressure":{"type":"string"}}}},
+"scenes":{"type":"array","minItems":1,"items":{"type":"object","required":["id","location","time","value_before","value_after","source_quotes","beats"],"properties":{
+"id":{"type":"string"},"location":{"type":"string"},"time":{"type":"string"},"value_before":{"type":"string"},"value_after":{"type":"string"},"source_quotes":{"type":"array","items":{"type":"string"}},
+"beats":{"type":"array","items":{"type":"object","required":["action"],"properties":{"action":{"type":"string"},"invented":{"type":"boolean"},"dialogue":{"type":"array","items":{"type":"object","required":["speaker","text","on_screen","est_seconds"],"properties":{"speaker":{"type":"string"},"text":{"type":"string"},"on_screen":{"type":"boolean"},"est_seconds":{"type":"number"}}}}}}}}}}}}

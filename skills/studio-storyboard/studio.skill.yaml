@@ -1,0 +1,10 @@
+id: studio-storyboard
+version: 1.0.0
+license: MIT
+stages: [storyboard]
+entry: SKILL.md
+output_schema: schemas/storyboard.json
+load:
+  storyboard:
+    - ../vendor/forest-laoli-h3/references/dialogue-density.md
+    - ../vendor/forest-laoli-h3/references/spatial-anchor-and-hold.md

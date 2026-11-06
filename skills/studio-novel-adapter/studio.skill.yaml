@@ -1,0 +1,6 @@
+id: studio-novel-adapter
+version: 1.0.0
+license: MIT
+stages: [script]
+entry: SKILL.md
+output_schema: schemas/script.json

@@ -1,0 +1,47 @@
+subject_definitions
+
+<Subject 1> is the man in Picture 1: twenty years old, short messy black hair, a lean build, a plain white T-shirt. Image used to lock his appearance.
+
+<Subject 2> is the woman in Picture 2: mid twenties, long straight black hair, fair skin, a plain white duvet held up to her chin. Image used to lock her appearance.
+
+<Subject 3> is the hotel suite in Picture 3: one wide bed with white linen against a pale wall, a floor-to-ceiling window on the left with its curtain half open, a closed door on the right. Image used to lock the space.
+
+<Subject 4> is the torn black stocking in Picture 4: thin sheer black fabric with one long tear. Image used to lock the prop.
+
+summary
+
+reference generation — A young man wakes in a hotel bed and peels a torn stocking from his face; his mother calls about him staying out; he brushes her off until he turns and finds a stranger beside him already awake and watching.
+
+retention_analysis
+
+<Subject 1> (image): fully_preserved — face, hairstyle and T-shirt retained.
+
+<Subject 2> (image): fully_preserved — face, hairstyle and white duvet retained.
+
+<Subject 3> (image): partially_preserved — bed, window and door retained; camera angles are free.
+
+<Subject 4> (image): fully_preserved — colour, sheer fabric and tear retained.
+
+detailed_description
+
+Early morning, one hard shaft of white-gold sunlight enters from the window on the left and lands across the bed; fine dust drifts through the beam; the blurred edge of a white pillow sits in the near foreground. Inside <Subject 3>, the white bed stands against the pale wall, the door on the right stays shut. The camera stays on the same side of them throughout; he is on the left, she is on the right. One man only and one woman only.
+
+[Shot 1] Close-up, eye level, the camera holds still; <Subject 1> lies on the left of the bed in the sunlight and pulls <Subject 4> away from his face with his right hand, his eyes wide and fixed on it, his lips moving; and the young man with a bright quick voice (S1) says at a quick pace: <d>[Chinese] 这给我干哪儿来了？</d>
+
+[Shot 2] At 00:02.500, the camera cuts to a medium close-up, 45-degree side angle, the camera holds still; he sits up against the headboard and presses a black phone to his right ear, <Subject 4> held in his left hand; the woman on the phone with a high sharp voice (S2) says in an off-screen voiceover: <d>[Chinese] 方瑜！昨晚为什么不回家？</d> while his lips remain completely closed.
+
+[Shot 3] At 00:05.500, the camera cuts to a close-up, eye level, the camera holds still; he rolls his eyes up to the ceiling with the phone at his right ear, his lips moving; and the young man with a bright quick voice (S1) says at an even pace: <d>[Chinese] 老妈，我都多大了。</d>
+
+[Shot 4] At 00:08.000, the camera cuts to a medium shot, 45-degree side angle, the camera holds still; he lets <Subject 4> drop onto the white sheet on the left of the bed, <Subject 2> lies still on the right with her back to him; the woman on the phone with a high sharp voice (S2) says in an off-screen voiceover: <d>[Chinese] 万一被骗去领证怎么办？</d> while his lips remain completely closed.
+
+[Shot 5] At 00:11.000, the camera cuts to a close-up, eye level, the camera holds still; he stretches his mouth into a thin stiff smile, the phone still at his right ear, his lips moving; and the young man with a bright quick voice (S1) says at an uneven pace: <d>[Chinese] 这怎么可能？</d>
+
+[Shot 6] At 00:13.000, the camera cuts to an extreme close-up, eye level, the camera holds still; <Subject 2> lies on her side facing the camera with the white duvet up to her chin, her dark eyes open and fixed on him, her lips closed, a faint flush on her ears; she holds this pose for the final one second, her eyes steady on him.
+
+overall_soundscape
+
+The low hum of hotel air conditioning; the soft rustle of linen; a tinny phone speaker close to his ear; outside the window, distant morning traffic, faint and even.
+
+non_diegetic_music
+
+None.

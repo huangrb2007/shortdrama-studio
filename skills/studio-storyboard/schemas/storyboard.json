@@ -1,0 +1,6 @@
+{"type":"object","required":["segments"],"properties":{"segments":{"type":"array","minItems":1,"items":{"type":"object","required":["id","duration","space_anchor","value_turn","entry_state","exit_state","cuts"],"properties":{
+"id":{"type":"string"},"duration":{"type":"number"},"space_anchor":{"type":"string"},"value_turn":{"type":"string"},"entry_state":{"type":"string"},"exit_state":{"type":"string"},
+"cuts":{"type":"array","minItems":1,"items":{"type":"object","required":["id","duration","shot_size","camera","primary_action","audience_gets","characters","transition"],"properties":{
+"id":{"type":"string"},"duration":{"type":"number"},"shot_size":{"enum":["extreme_wide","wide","full","medium","medium_close","close","extreme_close"]},"camera":{"type":"string"},"primary_action":{"type":"string"},"audience_gets":{"type":"string"},"transition":{"type":"string"},
+"characters":{"type":"array","items":{"type":"object","required":["name","facing"],"properties":{"name":{"type":"string"},"facing":{"enum":["front","three_quarter","profile","back","silhouette"]},"lips":{"enum":["speaking","closed"]}}}},
+"dialogue":{"type":"array","items":{"type":"object","required":["speaker","text","on_screen"],"properties":{"speaker":{"type":"string"},"text":{"type":"string"},"on_screen":{"type":"boolean"}}}}}}}}}}}}

@@ -1,0 +1,5 @@
+id: studio-idea-diagnosis
+version: 1.0.0
+license: MIT
+stages: [input, brief]
+entry: SKILL.md

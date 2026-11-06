@@ -1,0 +1,12 @@
+id: studio-h3-compiler
+version: 1.0.0
+license: MIT
+stages: [prompt_compile]
+entry: SKILL.md
+load:
+  prompt_compile:
+    - ../vendor/forest-laoli-h3/references/h3-format.md
+    - ../vendor/forest-laoli-h3/references/h3-lexicon-cleanup.md
+    - ../vendor/forest-laoli-h3/references/atmosphere-and-light.md
+validators:
+  - { type: script, run: ../vendor/forest-laoli-h3/scripts/h3_lint.py, sandbox: pyodide, fail_on: FAIL }

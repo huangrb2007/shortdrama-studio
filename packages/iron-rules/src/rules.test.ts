@@ -1,0 +1,21 @@
+import { describe, it, expect } from 'vitest';
+import fs from 'node:fs';
+import { validateSegment, validatePrompt, validateRepair, hasFail } from './index';
+const sb = JSON.parse(fs.readFileSync('fixtures/lingzheng/storyboard.json', 'utf8'));
+const seg = () => structuredClone(sb.segments[0]);
+const prompt = fs.readFileSync('fixtures/lingzheng/e01-s01.prompt.txt', 'utf8');
+const rules = (s: any) => validateSegment(s).filter((i) => i.level === 'fail').map((i) => i.rule);
+describe('铁律', () => {
+  it('《领证》样例通过', () => { const r = validateSegment(seg()); expect(r.filter((i) => i.level === 'fail')).toEqual([]); expect(r).toEqual([]); expect(validatePrompt(prompt, seg(), 4)).toEqual([]); });
+  it('2 镜数不对', () => { const s = seg(); s.cuts.splice(1, 3); s.cuts[0].duration = 5; s.cuts[1].duration = 5; s.cuts[2].duration = 5; expect(rules(s)).toContain('铁律2'); });
+  it('2 非尾段不足 15 秒被拦，尾段放行并按比例减镜', () => { const s = seg(); s.duration = 8; s.cuts = s.cuts.slice(0, 3); s.cuts[0].duration = 2.5; s.cuts[1].duration = 3.5; s.cuts[2].duration = 2; expect(rules(s)).toContain('铁律2'); s.is_tail = true; expect(rules(s)).not.toContain('铁律2'); });
+  it('3 等分被拦', () => { const s = seg(); s.cuts.forEach((c: any) => (c.duration = 2.5)); expect(rules(s)).toContain('铁律3'); });
+  it('4 远景正脸被拦', () => { const s = seg(); s.cuts[3].shot_size = 'wide'; s.cuts[3].characters[0].facing = 'front'; expect(rules(s)).toContain('铁律4'); });
+  it('6 多动作被拦', () => { const s = seg(); s.cuts[0].primary_action = '他扯下丝袜，然后坐起来'; expect(rules(s)).toContain('铁律6'); });
+  it('1 说话人不在画面被拦', () => { const s = seg(); s.cuts[0].characters = []; expect(rules(s)).toContain('铁律1'); });
+  it('1 非说话者张嘴被拦', () => { const s = seg(); s.cuts[3].characters[1].lips = 'speaking'; expect(rules(s)).toContain('铁律1'); });
+  it('1 台词改一个字被拦', () => { expect(hasFail(validatePrompt(prompt.replace('这怎么可能？', '这不可能吧？'), seg(), 4))).toBe(true); });
+  it('1 台词重复被拦', () => { expect(hasFail(validatePrompt(prompt + '<d>[Chinese] 这怎么可能？</d>', seg(), 4))).toBe(true); });
+  it('5 图槽越界被拦', () => { expect(validatePrompt(prompt, seg(), 3).map((i) => i.rule)).toContain('铁律5'); });
+  it('7 整集重跑被拦、无原因被拦', () => { expect(hasFail(validateRepair({ nodeId: 'x', reason: '嘴不对', scope: 'episode' }))).toBe(true); expect(hasFail(validateRepair({ nodeId: 'x', reason: ' ' }))).toBe(true); expect(hasFail(validateRepair({ nodeId: 'x', reason: '第 3 镜换脸' }))).toBe(false); });
+});

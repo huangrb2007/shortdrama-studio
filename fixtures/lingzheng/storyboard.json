@@ -1,0 +1,149 @@
+{
+ "segments": [
+  {
+   "id": "E01-S01",
+   "duration": 15,
+   "space_anchor": "五星酒店大床房。一张白色大床靠墙，左侧落地窗拉开一半，早晨阳光从左侧照进来。方瑜靠画面左半坐在床上，姜溺意背对他躺在床的右半。房门关着。",
+   "value_turn": "以为只是喝多了回不了家 → 发现身边躺着一个正盯着他的陌生女人",
+   "entry_state": "方瑜仰躺刚醒，脸上盖着一条破丝袜",
+   "exit_state": "方瑜握手机僵住，两人对视，姜溺意被子裹到下巴",
+   "cuts": [
+    {
+     "id": "c1",
+     "duration": 2.5,
+     "shot_size": "close",
+     "camera": "固定",
+     "primary_action": "方瑜从脸上扯下一条破丝袜，瞪着它",
+     "audience_gets": "这人不知道发生了什么，而且很好笑",
+     "transition": "硬切",
+     "characters": [
+      {
+       "name": "方瑜",
+       "facing": "front",
+       "lips": "speaking"
+      }
+     ],
+     "dialogue": [
+      {
+       "speaker": "方瑜",
+       "text": "这给我干哪儿来了？",
+       "on_screen": true
+      }
+     ]
+    },
+    {
+     "id": "c2",
+     "duration": 3,
+     "shot_size": "medium_close",
+     "camera": "固定",
+     "primary_action": "方瑜把手机贴到右耳",
+     "audience_gets": "有人在查岗，他要撒谎了",
+     "transition": "硬切",
+     "characters": [
+      {
+       "name": "方瑜",
+       "facing": "three_quarter",
+       "lips": "closed"
+      }
+     ],
+     "dialogue": [
+      {
+       "speaker": "梁艳",
+       "text": "方瑜！昨晚为什么不回家？",
+       "on_screen": false
+      }
+     ]
+    },
+    {
+     "id": "c3",
+     "duration": 2.5,
+     "shot_size": "close",
+     "camera": "固定",
+     "primary_action": "方瑜翻了个白眼",
+     "audience_gets": "他还以为能蒙混过去",
+     "transition": "硬切",
+     "characters": [
+      {
+       "name": "方瑜",
+       "facing": "front",
+       "lips": "speaking"
+      }
+     ],
+     "dialogue": [
+      {
+       "speaker": "方瑜",
+       "text": "老妈，我都多大了。",
+       "on_screen": true
+      }
+     ]
+    },
+    {
+     "id": "c4",
+     "duration": 3,
+     "shot_size": "medium",
+     "camera": "固定",
+     "primary_action": "方瑜放下丝袜，手停在床单上",
+     "audience_gets": "妈妈的话和他身上发生的事对上了",
+     "transition": "硬切",
+     "characters": [
+      {
+       "name": "方瑜",
+       "facing": "three_quarter",
+       "lips": "closed"
+      },
+      {
+       "name": "姜溺意",
+       "facing": "back"
+      }
+     ],
+     "dialogue": [
+      {
+       "speaker": "梁艳",
+       "text": "万一被骗去领证怎么办？",
+       "on_screen": false
+      }
+     ]
+    },
+    {
+     "id": "c5",
+     "duration": 2,
+     "shot_size": "close",
+     "camera": "固定",
+     "primary_action": "方瑜扯出一个干笑",
+     "audience_gets": "他嘴硬，但开始慌了",
+     "transition": "硬切",
+     "characters": [
+      {
+       "name": "方瑜",
+       "facing": "front",
+       "lips": "speaking"
+      }
+     ],
+     "dialogue": [
+      {
+       "speaker": "方瑜",
+       "text": "这怎么可能？",
+       "on_screen": true
+      }
+     ]
+    },
+    {
+     "id": "c6",
+     "duration": 2,
+     "shot_size": "extreme_close",
+     "camera": "固定",
+     "primary_action": "姜溺意睁着眼，看着他",
+     "audience_gets": "她醒了，而且全听见了",
+     "transition": "段尾定格",
+     "characters": [
+      {
+       "name": "姜溺意",
+       "facing": "front",
+       "lips": "closed"
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
