@@ -1,0 +1,11 @@
+id: studio-pipeline
+version: 1.0.0
+license: MIT
+stages: [input, brief, outline, assets, asset_gen, qc]
+entry: SKILL.md
+load:
+  input: [stages/input.md]
+  brief: [stages/brief.md]
+  outline: [stages/outline.md]
+  assets: [stages/assets.md, ../vendor/forest-laoli-h3/references/asset-layer.md]
+  asset_gen: [stages/asset_gen.md]
