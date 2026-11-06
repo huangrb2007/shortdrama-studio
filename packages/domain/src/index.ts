@@ -8,7 +8,7 @@ export const STAGES = [
   { id: 'asset_gen', name: '资产生成', hint: '参考图与图槽' },
   { id: 'prompt_compile', name: '提示词', hint: 'H3 六段式' },
   { id: 'video_gen', name: '镜头生成', hint: '估价后提交' },
-  { id: 'review', name: '候选复核', hint: '抽帧、ASR、选定' },
+  { id: 'review', name: '候选复核', hint: '抽帧、听台词、选定' },
   { id: 'rough_cut', name: '粗剪', hint: '合片与字幕' },
   { id: 'qc', name: '质检', hint: '定位到 cut' },
   { id: 'delivery', name: '交付', hint: '成片与工程包' },

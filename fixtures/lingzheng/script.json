@@ -1,0 +1,22 @@
+{"episode_promise":"一觉醒来和陌生美女同床，她第一句话不是报警，是“跟我领证”。她到底图什么？",
+"blockers":[],
+"compliance_notes":["原文亲密内容全部降级为“事后尴尬”，不出现内衣、身体细节和性暗示台词；破丝袜只作喜剧道具。","原文设定男性 20 岁可结婚，与现行法定 22 岁不符。建议把方瑜改成 22 岁（只差一句台词），需要你决定。","原文“为了过审”的谐音梗全部删除。"],
+"voice_cards":[
+{"name":"方瑜","age":20,"habits":"遇事先吐槽，爱用游戏和网络梗，句尾带反问","never_says":"深情告白、成熟的大道理","under_pressure":"嘴比脑子快，越慌越贫"},
+{"name":"姜溺意","age":23,"habits":"话极短，从不解释，用祈使句","never_says":"撒娇、感叹号、解释自己的动机","under_pressure":"更冷静，耳根却会红"},
+{"name":"梁艳","age":45,"habits":"连珠炮，脑洞大，每句都在抓儿子把柄","never_says":"温柔的安慰","under_pressure":"音量更高"}],
+"scenes":[
+{"id":"S1","location":"五星酒店大床房","time":"清晨","value_before":"以为只是喝多了没回家","value_after":"发现身边躺着一个正盯着他的陌生女人","source_quotes":["脸上不知道什么时候还多了一条被扯破的黑丝","这给我干哪里来了？","昨晚为什么不回家？","老妈，我都多大了","万一你要是被哪个女人骗去领证了怎么办？","那双美眸正在注视着他"],
+"beats":[
+{"action":"方瑜被阳光晒醒，从脸上扯下一条破丝袜，瞪着它。","dialogue":[{"speaker":"方瑜","text":"这给我干哪儿来了？","on_screen":true,"est_seconds":2.4}]},
+{"action":"手机响。方瑜接起，妈妈的声音炸出来。","dialogue":[{"speaker":"梁艳","text":"方瑜！昨晚为什么不回家？","on_screen":false,"est_seconds":3.0},{"speaker":"方瑜","text":"老妈，我都多大了。","on_screen":true,"est_seconds":2.1},{"speaker":"梁艳","text":"万一被骗去领证怎么办？","on_screen":false,"est_seconds":3.0},{"speaker":"方瑜","text":"这怎么可能？","on_screen":true,"est_seconds":1.5}]},
+{"action":"他余光一扫，身旁的女人已经醒了，正看着他。"}]},
+{"id":"S2","location":"五星酒店大床房","time":"清晨","value_before":"以为自己要被追究","value_after":"对方一句“我负责”把局面彻底反转","source_quotes":["我说昨晚是你主动的，你信吗？","不好意思，自瞄没关。","昨晚的事情是我的问题，我会负责的"],
+"beats":[
+{"action":"方瑜挂断电话，清了清嗓子。","dialogue":[{"speaker":"方瑜","text":"我说昨晚是你主动的，你信吗？","on_screen":true,"est_seconds":3.9}]},
+{"action":"女人裹着被子，脸色冷，耳根红。她发现他在打量自己。","dialogue":[{"speaker":"姜溺意","text":"你看什么？","on_screen":true,"est_seconds":1.2},{"speaker":"方瑜","text":"不好意思，自瞄没关。","on_screen":true,"est_seconds":2.4}]},
+{"action":"她沉默片刻，开口。","dialogue":[{"speaker":"姜溺意","text":"昨晚是我的问题，我会负责。","on_screen":true,"est_seconds":3.6},{"speaker":"方瑜","text":"这不是我的台词吗？","on_screen":true,"est_seconds":2.4}]}]},
+{"id":"S3","location":"五星酒店大床房门口","time":"清晨","value_before":"以为“负责”只是客气话","value_after":"她要的是当场领证","source_quotes":["你身份证带了吗？","不会想要割我的腰子吧？","跟我领证吧，我对你负责。"],
+"beats":[
+{"action":"她已穿好黑色连衣裙，站在门边，理了理袖口。","dialogue":[{"speaker":"姜溺意","text":"身份证带了吗？","on_screen":true,"est_seconds":1.8},{"speaker":"方瑜","text":"带了。你不会想割我腰子吧？","on_screen":true,"est_seconds":3.3}]},
+{"action":"她看着他，一字一顿。方瑜僵住，手里的鞋掉在地上。","dialogue":[{"speaker":"姜溺意","text":"跟我领证吧，我对你负责。","on_screen":true,"est_seconds":3.0}]}]}]}

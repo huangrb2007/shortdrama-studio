@@ -1,8 +1,8 @@
 subject_definitions
 
-<Subject 1> is the man in Picture 1: twenty years old, short messy black hair, a lean build, a plain white T-shirt. Image used to lock his appearance.
+<Subject 1> is the man in Picture 1: an adult man of twenty, short messy black hair, a lean build, a plain white T-shirt. Image used to lock his appearance.
 
-<Subject 2> is the woman in Picture 2: mid twenties, long straight black hair, fair skin, a plain white duvet held up to her chin. Image used to lock her appearance.
+<Subject 2> is the woman in Picture 2: an adult woman in her mid twenties, waist-length straight black hair, fair skin. Image used to lock her appearance.
 
 <Subject 3> is the hotel suite in Picture 3: one wide bed with white linen against a pale wall, a floor-to-ceiling window on the left with its curtain half open, a closed door on the right. Image used to lock the space.
 
@@ -16,7 +16,7 @@ retention_analysis
 
 <Subject 1> (image): fully_preserved — face, hairstyle and T-shirt retained.
 
-<Subject 2> (image): fully_preserved — face, hairstyle and white duvet retained.
+<Subject 2> (image): fully_preserved — face and hairstyle retained.
 
 <Subject 3> (image): partially_preserved — bed, window and door retained; camera angles are free.
 

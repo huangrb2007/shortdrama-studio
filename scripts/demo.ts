@@ -1,0 +1,22 @@
+// 本地演示和界面验收：脚本化模型 + 假 ComfyUI，不联网、不花钱。
+import fs from 'node:fs'; import path from 'node:path'; import os from 'node:os'; import { execSync } from 'node:child_process';
+import { buildApp } from '../apps/server/src/app';
+const fx = (n: string) => fs.readFileSync(path.resolve('fixtures/lingzheng', n), 'utf8');
+const answers: Record<string, any> = { input: { summary: '一夜之后，陌生美女要求当场领证。', directions: [{ title: '先婚后爱喜剧', promise: '嘴贫的穷学生被清冷富婆当场领证，她到底图什么？', hook_3s: '男主从脸上扯下一条破丝袜', why_must: '被激将后脑子一热', episode1_cliffhanger: '跟我领证吧', cast_size: 3, scene_count: 2 }], characters: [{ name: '方瑜', age: 20, evidence: '方瑜已经二十岁了' }, { name: '姜溺意', age: 23, evidence: '只比他大了三岁半' }], blockers: [] }, brief: { title: '领证', promise: '她为什么非要嫁一个刚认识的穷学生？', hook_3s: '破丝袜和妈妈的查岗电话', payoffs: [{ episode: 1, type: '反转', trigger: '跟我领证吧' }], audience: '都市甜宠', episodes: 60, episode_seconds: 90, cast_limit: 3, scene_limit: 2, risks: ['亲密内容需要降级'], blockers: [] }, outline: { episodes: [{ id: 'E01', goal: '弄清楚发生了什么', conflict: '妈妈查岗 vs 身边的陌生人', turn: '她说我负责', cliffhanger: '跟我领证吧', source_chapters: [1] }], blockers: [] }, script: JSON.parse(fx('script.json')), assets: JSON.parse(fx('assets.json')), storyboard: JSON.parse(fx('storyboard.json')), prompt_compile: { prompt: fx('e01-s01.prompt.txt') } };
+const llm = async (q: { user: string }) => { await new Promise((r) => setTimeout(r, 150)); return JSON.stringify(answers[JSON.parse(q.user.split('\n\n上一版')[0]).stage]); };
+const clip = path.join(os.tmpdir(), 'sds-demo.mp4'); if (!fs.existsSync(clip)) execSync(`ffmpeg -y -loglevel error -f lavfi -i testsrc2=s=540x960:d=15:r=24 -f lavfi -i sine=d=15 -shortest -c:v libx264 -pix_fmt yuv420p ${clip}`);
+const png = path.join(os.tmpdir(), 'sds-demo.png'); if (!fs.existsSync(png)) execSync(`ffmpeg -y -loglevel error -f lavfi -i testsrc=s=800x600:d=1 -frames:v 1 ${png}`);
+let n = 0; const hist: any = {};
+const fake = (async (u: any, init: any) => { const url = new URL(String(u)); const j = (o: any) => new Response(JSON.stringify(o)); const p = url.pathname;
+  if (p === '/system_stats') return j({ system: { comfyui_version: 'demo' } }); if (p === '/api/userdata') return j(['U视频-MINIMAX-H3/U22-YZ金鱼-MiniMaxH3终极篇-文武双全.json', 'B图像-Qwen编辑/B18-Qwen-Image-2.1基础版.json']);
+  if (p.startsWith('/api/userdata/')) return j(decodeURIComponent(p).includes('U22') ? { nodes: [{ id: 403, type: 'Pick', mode: 0, widgets_values: ['p', 10, '16:9 (Widescreen)'] }], links: [] } : { nodes: [{ id: 37, type: 'Txt', mode: 0, widgets_values: ['p'] }, { id: 42, type: 'Res', mode: 0, widgets_values: ['16:9 (Widescreen)'] }], links: [] });
+  if (p === '/object_info') return j({ Pick: { input: { required: { prompt: ['STRING', {}], seconds: ['INT', {}], aspect_ratio: ['STRING', {}] } } }, Txt: { input: { required: { prompt: ['STRING', {}] } } }, Res: { input: { required: { aspect_ratio: ['STRING', {}] } } } });
+  if (p === '/upload/image') return j({ name: 'up.png' }); if (p === '/queue') return j({ queue_running: [], queue_pending: [] });
+  if (p === '/prompt') { const id = `p${++n}`; const body = JSON.parse(init.body); const isVideo = !!body.prompt['403']; hist[id] = { status: { status_str: 'success' }, outputs: { 1: isVideo ? { gifs: [{ filename: 'o.mp4', subfolder: '', type: 'output' }] } : { images: [{ filename: 'o.png', subfolder: '', type: 'output' }] } } }; return j({ prompt_id: id }); }
+  if (p.startsWith('/history/')) return j(hist[p.split('/')[2]] ? { [p.split('/')[2]]: hist[p.split('/')[2]] } : {});
+  if (p === '/view') return new Response(fs.readFileSync(url.searchParams.get('filename')!.endsWith('.mp4') ? clip : png)); return new Response('nf', { status: 404 }); }) as any;
+const dataDir = process.env.SDS_DATA_DIR ?? fs.mkdtempSync(path.join(os.tmpdir(), 'sds-demo-'));
+const { app, engine } = await buildApp({ dataDir, skillsDir: path.resolve('skills'), webDir: path.resolve('apps/web/dist'), masterKey: 'demo', llmOverride: llm, fetchImpl: fake });
+engine.setSetting('comfy', { baseUrl: 'http://demo', videoWorkflow: 'U视频-MINIMAX-H3/U22-YZ金鱼-MiniMaxH3终极篇-文武双全.json', imageWorkflow: 'B图像-Qwen编辑/B18-Qwen-Image-2.1基础版.json' });
+engine.setSetting('rates', { comfy: { kind: 'gpu_hourly', currency: 'CNY', hourly: 3, computeSecondsPerVideoSecond: 15, computeSecondsPerImage: 60, source: '用户', verifiedAt: '2026-11-06' } });
+console.log('DEMO', await app.listen({ port: Number(process.env.SDS_PORT ?? 4188), host: '127.0.0.1' }));

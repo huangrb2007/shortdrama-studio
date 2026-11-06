@@ -199,6 +199,7 @@ export class Engine {
     const actual = elapsed && (this.rate() as any).hourly ? Math.round((elapsed / 3600) * (this.rate() as any).hourly * 10000) / 10000 : l.estimate.cost;
     this.d.db.prepare('INSERT INTO candidates(id,project_id,target,ledger_id,file,created_at) VALUES(?,?,?,?,?,?)').run(uid(), l.project_id, l.target, l.id, name, now());
     this.move(l.id, 'succeeded', { output: name, reserved: 0, settled: actual });
+    if (l.kind === 'video') { this.setStage(l.project_id, 'video_gen', 'review'); const r: any = this.d.db.prepare("SELECT status FROM stages WHERE project_id=? AND stage='review'").get(l.project_id); if (r.status === 'locked' || r.status === 'stale') this.setStage(l.project_id, 'review', 'ready'); }
   }
   candidates(pid: string, target?: string) { return (target ? this.d.db.prepare('SELECT * FROM candidates WHERE project_id=? AND target=? ORDER BY created_at').all(pid, target) : this.d.db.prepare('SELECT * FROM candidates WHERE project_id=? ORDER BY created_at').all(pid)).map((c: any) => ({ ...c, review: c.review ? JSON.parse(c.review) : null })); }
   /** 图槽冻结：把选定的图写进图槽表。 */
@@ -207,12 +208,12 @@ export class Engine {
     if (slots.length > 9) throw new UserError('图槽超过 9 个', '减少资产');
     this.saveArtifact(pid, 'asset_gen', { slots }, null); this.setStage(pid, 'asset_gen', 'review'); return this.artifact(pid, 'asset_gen');
   }
-  selectCandidate(pid: string, id: string) { const c: any = this.d.db.prepare('SELECT * FROM candidates WHERE id=? AND project_id=?').get(id, pid); if (!c) throw new UserError('候选不存在', '刷新页面'); this.d.db.prepare('UPDATE candidates SET selected=0 WHERE project_id=? AND target=?').run(pid, c.target); this.d.db.prepare('UPDATE candidates SET selected=1 WHERE id=?').run(id); return this.candidates(pid, c.target); }
+  selectCandidate(pid: string, id: string) { const c: any = this.d.db.prepare('SELECT * FROM candidates WHERE id=? AND project_id=?').get(id, pid); if (!c) throw new UserError('候选不存在', '刷新页面'); this.d.db.prepare('UPDATE candidates SET selected=0 WHERE project_id=? AND target=?').run(pid, c.target); this.d.db.prepare('UPDATE candidates SET selected=1 WHERE id=?').run(id); const sb: Storyboard = this.frozen(pid, 'storyboard'); const chosen = new Set((this.d.db.prepare('SELECT target FROM candidates WHERE project_id=? AND selected=1').all(pid) as any[]).map((x) => x.target)); this.setStage(pid, 'review', 'review'); const next: any = this.d.db.prepare("SELECT status FROM stages WHERE project_id=? AND stage='rough_cut'").get(pid); if (next.status === 'locked') this.setStage(pid, 'rough_cut', 'ready'); if (sb.segments.every((g) => chosen.has(g.id))) { this.setStage(pid, 'video_gen', 'frozen'); this.setStage(pid, 'review', 'frozen'); } return this.candidates(pid, c.target); }
   /** 技术复核：时长、音轨、按 cut 中点抽帧。 */
   async review(pid: string, candidateId: string) {
     const c: any = this.d.db.prepare('SELECT * FROM candidates WHERE id=? AND project_id=?').get(candidateId, pid); if (!c) throw new UserError('候选不存在', '刷新页面');
-    const file = path.join(this.mediaDir(pid), c.file); const ff = this.d.ffmpeg ?? 'ffmpeg'; const probe = this.d.ffmpeg ? this.d.ffmpeg.replace(/ffmpeg(\.exe)?$/, 'ffprobe$1') : 'ffprobe';
-    const { stdout } = await exec(probe, ['-v', 'error', '-show_entries', 'format=duration:stream=codec_type', '-of', 'json', file]); const meta = JSON.parse(stdout); const duration = Number(meta.format.duration); const hasAudio = meta.streams.some((s: any) => s.codec_type === 'audio');
+    const file = path.join(this.mediaDir(pid), c.file); const ff = this.d.ffmpeg ?? 'ffmpeg';
+    const info: string = await exec(ff, ['-hide_banner', '-i', file]).then((r) => r.stderr, (e) => e.stderr ?? ''); const dm = /Duration: (\d+):(\d+):([\d.]+)/.exec(info); if (!dm) throw new UserError('读不出视频信息', '确认文件没有损坏'); const duration = Number(dm[1]) * 3600 + Number(dm[2]) * 60 + Number(dm[3]); const hasAudio = /Stream #.*Audio:/.test(info);
     const sb: Storyboard = this.frozen(pid, 'storyboard'); const seg = sb.segments.find((s) => s.id === c.target)!; let t = 0; const frames: { cut: string; file: string }[] = [];
     for (const cut of seg.cuts) { const name = `${c.id.slice(0, 8)}_${cut.id}.jpg`; await exec(ff, ['-y', '-ss', String(t + cut.duration / 2), '-i', file, '-frames:v', '1', '-q:v', '3', path.join(this.mediaDir(pid), name)]); frames.push({ cut: cut.id, file: name }); t += cut.duration; }
     const issues: string[] = []; if (Math.abs(duration - seg.duration) > 0.5) issues.push(`时长 ${duration.toFixed(2)} 秒，分镜要求 ${seg.duration} 秒`); if (!hasAudio) issues.push('没有音轨：铁律 1 要求对白原生生成');

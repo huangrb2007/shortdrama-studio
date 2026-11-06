@@ -1,0 +1,21 @@
+name: release
+on:
+  push:
+    tags: ['v*']
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - { os: windows-latest, cmd: 'pnpm dist:win --publish always' }
+          - { os: macos-latest, cmd: 'pnpm dist:mac --publish always' }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test
+      - run: ${{ matrix.cmd }}
+        env: { GH_TOKEN: '${{ secrets.GITHUB_TOKEN }}' }
