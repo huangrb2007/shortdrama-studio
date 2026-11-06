@@ -40,12 +40,13 @@ export function buildSystem(stack: LoadedSkill[], stage: string, resolve: (s: Lo
   for (const s of stack) {
     parts.push(`# Skill: ${s.manifest.id}@${s.manifest.version}\n\n${fs.readFileSync(path.join(s.dir, s.manifest.entry), 'utf8')}`);
     for (const rel of s.manifest.load?.[stage] ?? []) parts.push(`## 参考：${path.basename(rel)}\n\n${fs.readFileSync(resolve(s, rel), 'utf8')}`);
+    if (s.manifest.output_schema) parts.push(`## 输出格式（必须严格符合这份 JSON Schema，required 字段一个都不能少，字段名不能翻译或改写）\n\n\`\`\`json\n${fs.readFileSync(path.join(s.dir, s.manifest.output_schema), 'utf8')}\n\`\`\``);
     if (s.manifest.overrides) parts.push(`## 项目覆盖规则（优先于上文）\n${YAML.stringify(s.manifest.overrides)}`);
   }
   return parts.join('\n\n---\n\n');
 }
 
-export const validateSchema = (schema: object, data: unknown) => { const ajv = new Ajv({ allErrors: true, strict: false }); const ok = ajv.validate(schema, data); return ok ? [] : (ajv.errors ?? []).map((e) => `${e.instancePath || '/'} ${e.message}`); };
+export const validateSchema = (schema: object, data: unknown) => { const ajv = new Ajv({ allErrors: true, strict: false }); const ok = ajv.validate(schema, data); return ok ? [] : (ajv.errors ?? []).map((e) => { const miss = (e.params as any)?.missingProperty; return miss ? `${e.instancePath || '/'} 缺少字段 ${miss}` : `${e.instancePath || '/'} ${e.message}`; }); };
 export function parseJson(text: string): any { const t = text.trim().replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/, ''); try { return JSON.parse(t); } catch { const a = t.indexOf('{'), b = t.lastIndexOf('}'); if (a >= 0 && b > a) return JSON.parse(t.slice(a, b + 1)); throw new Error('模型没有返回合法 JSON'); } }
 
 export interface RunResult<T> { output: T; lock: SkillLock[]; attempts: number }
